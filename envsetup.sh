@@ -1662,6 +1662,18 @@ function pez {
 
 function get_make_command()
 {
+    # FlokoROM didn't allow ship some package
+    if [[ -f $(echo "ZXh0ZXJuYWwvZmFjZXVubG9jay9jb25maWcubWs=" | base64 -d) ]]; then
+        echo -e "\033[1;31m    ##################################################################\033[m" >&2
+        echo -e "\033[1;31m    #                                                                #\033[m" >&2
+        echo -e "\033[1;31m    #                            E R R O R !                         #\033[m" >&2
+        echo -e "\033[1;31m    #                                                                #\033[m" >&2
+        echo -e "\033[1;31m    #             $(echo "ZmFjZXVubG9jaw==" | base64 -d) MUST NOT exist in FlokoROM.             #\033[m" >&2
+        echo -e "\033[1;31m    #                              Goodbye.                          #\033[m" >&2
+        echo -e "\033[1;31m    #                                                                #\033[m" >&2
+        echo -e "\033[1;31m    ##################################################################\033[m" >&2
+        return 1
+    fi
     # If we're in the top of an Android tree, use soong_ui.bash instead of make
     if [ -f build/soong/soong_ui.bash ]; then
         # Always use the real make if -C is passed in
@@ -1884,6 +1896,19 @@ function showcommands() {
 validate_current_shell
 source_vendorsetup
 addcompletions
+
+# FlokoROM didn't allow ship some package
+if [[ -f $(echo "ZXh0ZXJuYWwvZmFjZXVubG9jay9jb25maWcubWs=" | base64 -d) ]]; then
+    echo -e "\033[1;31m    ##################################################################\033[m" >&2
+    echo -e "\033[1;31m    #                                                                #\033[m" >&2
+    echo -e "\033[1;31m    #                            E R R O R !                         #\033[m" >&2
+    echo -e "\033[1;31m    #                                                                #\033[m" >&2
+    echo -e "\033[1;31m    #             $(echo "ZmFjZXVubG9jaw==" | base64 -d) MUST NOT exist in FlokoROM.             #\033[m" >&2
+    echo -e "\033[1;31m    #                              Goodbye.                          #\033[m" >&2
+    echo -e "\033[1;31m    #                                                                #\033[m" >&2
+    echo -e "\033[1;31m    ##################################################################\033[m" >&2
+    return 1
+fi
 
 export ANDROID_BUILD_TOP=$(gettop)
 
