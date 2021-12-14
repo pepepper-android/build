@@ -2265,7 +2265,7 @@ endif
 ifneq ($(TARGET_PREBUILT_RECOVERY_RAMDISK),)
 	$(MKBOOTFS) $(PRODUCT_OUT)/prebuilt_recovery > $@
 else
-	$(MKBOOTFS) $(TARGET_RECOVERY_ROOT_OUT) > $@
+	$(MKBOOTFS) -d $(TARGET_OUT) $(TARGET_RECOVERY_ROOT_OUT) > $@
 endif
 
 $(recovery_ramdisk): $(recovery_uncompressed_ramdisk) $(COMPRESSION_COMMAND_DEPS)
