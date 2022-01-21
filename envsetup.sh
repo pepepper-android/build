@@ -663,17 +663,17 @@ function lunch()
 
     if ! check_product $product
     then
-        # if we can't find a product, try to grab it off the LineageOS GitHub
-        T=$(gettop)
-        cd $T > /dev/null
-        vendor/lineage/build/tools/roomservice.py $product
-        cd - > /dev/null
-        check_product $product
-    else
-        T=$(gettop)
-        cd $T > /dev/null
-        vendor/lineage/build/tools/roomservice.py $product true
-        cd - > /dev/null
+        # if we can't find a product, stop build and warn
+        echo -e "\033[1;31m    ################################################################\033[m" >&2
+        echo -e "\033[1;31m                                                                    \033[m" >&2
+        echo -e "\033[1;31m                                E R R O R !                         \033[m" >&2
+        echo -e "\033[1;31m                                                                    \033[m" >&2
+        echo -e "\033[1;31m               Don't have a product spec for: '$product'.           \033[m" >&2
+        echo -e "\033[1;31m                   Please put your repo manifest like               \033[m" >&2
+        echo -e "\033[1;31m                  '.repo/local_manifests/codename.xml'              \033[m" >&2
+        echo -e "\033[1;31m                                                                    \033[m" >&2
+        echo -e "\033[1;31m    ################################################################\033[m" >&2
+        return 1
     fi
 
     TARGET_PRODUCT=$product \
